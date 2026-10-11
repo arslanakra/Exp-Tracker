@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Expense Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Dashboard Header -->
+        <header>
+            <h1>Finance Dashboard</h1>
+            <div class="balance-card">
+                <div class="balance-item">
+                    <p>Total Balance</p>
+                    <h2>PKR <span id="total-balance" data-testid="total-balance">94,000</span></h2>
+                </div>
+                <div class="balance-row">
+                    <div>
+                        <p>Total Spent</p>
+                        <span id="total-spent" data-testid="total-spent">0</span> PKR
+                    </div>
+                    <div>
+                        <p>Saved</p>
+                        <span id="total-saved" data-testid="total-saved">0</span> PKR
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- ⚡ Smart Bank SMS Paste Box -->
+            <section class="sms-parser-section">
+                <h3>⚡ Fast-Track: Paste Bank SMS</h3>
+                <textarea id="sms-input" data-testid="sms-input" placeholder="Paste your bank transaction SMS text here..."></textarea>
+                <button id="parse-sms-btn" data-testid="parse-sms-btn">Parse & Auto-Fill</button>
+            </section>
+
+            <!-- Manual Transaction Form -->
+            <section class="form-section">
+                <h3>Add Transaction</h3>
+                <form id="transaction-form">
+                    <div class="input-group">
+                        <input type="text" id="tx-description" data-testid="tx-description" placeholder="Description (e.g., Alfalah Grocery)" required>
+                    </div>
+                    <div class="input-row">
+                        <input type="text" id="tx-amount" data-testid="tx-amount" placeholder="Amount (PKR)" inputmode="decimal" autocomplete="off" required>
+                        <select id="tx-type" data-testid="tx-type">
+                            <option value="expense">Expense</option>
+                            <option value="savings">Savings Deposit</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <select id="tx-category" data-testid="tx-category">
+                            <option value="Groceries">🛒 Groceries (Cap: 25%)</option>
+                            <option value="Restaurants">🍔 Restaurants & Dining</option>
+                            <option value="Transport">🚌 Daily Commute</option>
+                            <option value="Utilities">⚡ Bills & Utilities</option>
+                            <option value="Lifestyle">🛍️ Shopping & Lifestyle</option>
+                            <option value="Savings">💰 Savings Pot</option>
+                            <option value="Withdrawls">🎈 Withdrawls</option>
+                        </select>
+                    </div>
+                    <button type="submit" data-testid="submit-btn">Save Entry</button>
+                </form>
+            </section>
+
+            <!-- 🚨 Budget Caps & Spending Allocations -->
+            <section class="budget-section">
+                <h3>Budget Limits & Allocations</h3>
+                
+                <!-- Groceries Budget Tracker -->
+                <div class="budget-card" id="budget-groceries" data-testid="budget-card-groceries">
+                    <div class="budget-info">
+                        <span>🛒 Groceries (Target: 23,500 PKR)</span>
+                        <span id="grocery-spent-label">0 / 23,500 PKR</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div id="grocery-progress" class="progress-bar progress-safe" style="width: 0%;"></div>
+                    </div>
+                </div>
+
+                <!-- Savings Goal Tracker -->
+                <div class="budget-card" id="budget-savings" data-testid="budget-card-savings">
+                    <div class="budget-info">
+                        <span>💰 Savings Goal (Target: 14,100 PKR)</span>
+                        <span id="savings-spent-label">0 / 14,100 PKR</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div id="savings-progress" class="progress-bar progress-savings" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Transactions Feed -->
+            <section class="history-section">
+                <h3>Recent Activity</h3>
+                <ul id="transaction-list" data-testid="transaction-list">
+                    <!-- JavaScript inserts rows dynamically here -->
+                </ul>
+            </section>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

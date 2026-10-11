@@ -1,0 +1,177 @@
+:root {
+    --bg-color: #f0f3f5;
+    --card-bg: #ffffff;
+    --text-main: #2d3748;
+    --primary-gradient: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
+    --color-safe: #48bb78;
+    --color-warning: #ecc94b;
+    --color-alarm: #f56565;
+    --color-savings: #805ad5;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    color: var(--text-main);
+}
+
+.app-container {
+    width: 100%;
+    max-width: 412px; /* Emulates mobile viewports perfectly */
+    background: var(--card-bg);
+    min-height: 100vh;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+}
+
+header h1 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.balance-card {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(49, 130, 206, 0.3);
+    margin-bottom: 20px;
+}
+
+.balance-item p {
+    font-size: 12px;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.balance-item h2 {
+    font-size: 28px;
+    margin-bottom: 14px;
+}
+
+.balance-row {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 10px;
+    font-size: 14px;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+section h3 {
+    font-size: 14px;
+    color: #718096;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+textarea, input, select, button {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    background: #f7fafc;
+}
+
+textarea {
+    height: 70px;
+    resize: none;
+    font-size: 13px;
+}
+
+.sms-parser-section button {
+    background-color: #2d3748;
+    color: white;
+    margin-top: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.input-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.input-row input { width: 60%; }
+.input-row select { width: 40%; }
+.input-group { margin-bottom: 8px; }
+
+form button {
+    background-color: #3182ce;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+/* Progress Alerts Styles */
+.budget-card {
+    background: #f7fafc;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #edf2f7;
+}
+
+.budget-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.progress-bar-container {
+    background: #edf2f7;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    transition: width 0.4s ease, background-color 0.3s ease;
+}
+
+.progress-safe { background-color: var(--color-safe); }
+.progress-warning { background-color: var(--color-warning); }
+.progress-alarm { background-color: var(--color-alarm); }
+.progress-savings { background-color: var(--color-savings); }
+
+/* Activity Items */
+ul { list-style: none; }
+.tx-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #edf2f7;
+    font-size: 14px;
+}
+
+.tx-item .details { display: flex; flex-direction: column; }
+.tx-item .details .tag { font-size: 11px; color: #a0aec0; }
+.tx-expense { color: var(--color-alarm); font-weight: 600; }
+.tx-income { color: var(--color-safe); font-weight: 600; }
