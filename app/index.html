@@ -8,99 +8,131 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- Dashboard Header -->
-        <header>
-            <h1>Finance Dashboard</h1>
-            <div class="balance-card">
-                <div class="balance-item">
-                    <p>Total Balance</p>
-                    <h2>PKR <span id="total-balance" data-testid="total-balance">94,000</span></h2>
-                </div>
-                <div class="balance-row">
-                    <div>
-                        <p>Total Spent</p>
-                        <span id="total-spent" data-testid="total-spent">0</span> PKR
+        
+        <!-- 🏠 VIEW 1: THE HOME DASHBOARD PANELS -->
+        <div id="dashboard-view" class="view-panel active">
+            <header>
+                <div class="balance-card">
+                    <div class="balance-item">
+                        <p>Total Balance</p>
+                        <h2>PKR <span id="total-balance" data-testid="total-balance">94,000</span></h2>
                     </div>
-                    <div>
-                        <p>Saved</p>
-                        <span id="total-saved" data-testid="total-saved">0</span> PKR
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <main>
-            <!-- ⚡ Smart Bank SMS Paste Box -->
-            <section class="sms-parser-section">
-                <h3>⚡ Fast-Track: Paste Bank SMS</h3>
-                <textarea id="sms-input" data-testid="sms-input" placeholder="Paste your bank transaction SMS text here..."></textarea>
-                <button id="parse-sms-btn" data-testid="parse-sms-btn">Parse & Auto-Fill</button>
-            </section>
-
-            <!-- Manual Transaction Form -->
-            <section class="form-section">
-                <h3>Add Transaction</h3>
-                <form id="transaction-form">
-                    <div class="input-group">
-                        <input type="text" id="tx-description" data-testid="tx-description" placeholder="Description (e.g., Alfalah Grocery)" required>
-                    </div>
-                    <div class="input-row">
-                        <input type="text" id="tx-amount" data-testid="tx-amount" placeholder="Amount (PKR)" inputmode="decimal" autocomplete="off" required>
-                        <select id="tx-type" data-testid="tx-type">
-                            <option value="expense">Expense</option>
-                            <option value="savings">Savings Deposit</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <select id="tx-category" data-testid="tx-category">
-                            <option value="Groceries">🛒 Groceries (Cap: 25%)</option>
-                            <option value="Restaurants">🍔 Restaurants & Dining</option>
-                            <option value="Transport">🚌 Daily Commute</option>
-                            <option value="Utilities">⚡ Bills & Utilities</option>
-                            <option value="Lifestyle">🛍️ Shopping & Lifestyle</option>
-                            <option value="Savings">💰 Savings Pot</option>
-                            <option value="Withdrawls">🎈 Withdrawls</option>
-                        </select>
-                    </div>
-                    <button type="submit" data-testid="submit-btn">Save Entry</button>
-                </form>
-            </section>
-
-            <!-- 🚨 Budget Caps & Spending Allocations -->
-            <section class="budget-section">
-                <h3>Budget Limits & Allocations</h3>
-                
-                <!-- Groceries Budget Tracker -->
-                <div class="budget-card" id="budget-groceries" data-testid="budget-card-groceries">
-                    <div class="budget-info">
-                        <span>🛒 Groceries (Target: 23,500 PKR)</span>
-                        <span id="grocery-spent-label">0 / 23,500 PKR</span>
-                    </div>
-                    <div class="progress-bar-container">
-                        <div id="grocery-progress" class="progress-bar progress-safe" style="width: 0%;"></div>
+                    <div class="balance-row">
+                        <div>
+                            <p>Total Spent</p>
+                            <span id="total-spent" data-testid="total-spent">0</span> PKR
+                        </div>
+                        <div>
+                            <p>Saved</p>
+                            <span id="total-saved" data-testid="total-saved">0</span> PKR
+                        </div>
                     </div>
                 </div>
+            </header>
 
-                <!-- Savings Goal Tracker -->
-                <div class="budget-card" id="budget-savings" data-testid="budget-card-savings">
-                    <div class="budget-info">
-                        <span>💰 Savings Goal (Target: 14,100 PKR)</span>
-                        <span id="savings-spent-label">0 / 14,100 PKR</span>
-                    </div>
-                    <div class="progress-bar-container">
-                        <div id="savings-progress" class="progress-bar progress-savings" style="width: 0%;"></div>
-                    </div>
-                </div>
-            </section>
+            <main>
+                <section class="form-section">
+                    <form id="transaction-form">
+                        <div class="input-group">
+                            <textarea id="tx-input" data-testid="tx-input" placeholder="Amount (PKR) or paste a bank SMS..." aria-label="Amount or bank SMS" required></textarea>
+                        </div>
+                        <div class="input-row">
+                            <select id="tx-type" data-testid="tx-type">
+                                <option value="expense">Expense</option>
+                                <option value="savings">Savings Deposit</option>
+                            </select>
+                            <select id="tx-category" data-testid="tx-category">
+                                <option value="Transport">🚌 Daily Expenses</option>
+                                <option value="Restaurants">🍔 Restaurants & Dining</option>
+                                <option value="Utilities">⚡ Bills & Utilities</option>
+                                <option value="Groceries">🛒 Groceries (Cap: 25%)</option>
+                                <option value="Lifestyle">🛍️ Shopping & Lifestyle</option>
+                                <option value="Withdrawal">🎈Cash Withdrawals</option>
+                                <option value="Savings">💰 Savings Pot</option>
+                            </select>
+                        </div>
+                        <button type="submit" data-testid="submit-btn">Save</button>
+                    </form>
+                </section>
 
-            <!-- Recent Transactions Feed -->
-            <section class="history-section">
-                <h3>Recent Activity</h3>
-                <ul id="transaction-list" data-testid="transaction-list">
-                    <!-- JavaScript inserts rows dynamically here -->
+                <!-- 🚨 Budget Caps & Spending Allocations -->
+                <section class="budget-section">
+                    <h3>Budget Targets &amp; Spending</h3>
+                    <div id="budget-chart" class="budget-chart" data-testid="budget-chart"></div>
+                </section>
+
+                <!-- Pinned Activity Feed (Truncated Preview to exactly 3 items max) -->
+                <section class="history-section">
+                    <div class="section-header-row">
+                        <h3>Recent Activity (Max 3)</h3>
+                    </div>
+                    <ul id="recent-transaction-list" data-testid="recent-transaction-list">
+                        <!-- JS renders maximum 3 items here -->
+                    </ul>
+                </section>
+            </main>
+        </div>
+
+        <!-- 📑 VIEW 2: THE FULL TRANSACTIONS LEDGER RECORD BOARD -->
+        <div id="transactions-view" class="view-panel">
+            <header class="sub-view-header">
+                <h2>All Transactions</h2>
+            </header>
+            <main>
+                <section class="transaction-filter" aria-label="Filter transactions by date">
+                    <div class="date-filter-fields">
+                        <label>
+                            From
+                            <input type="text" id="tx-date-from" data-testid="tx-date-from" placeholder="DD/MM/YYYY" inputmode="numeric" autocomplete="off">
+                        </label>
+                        <label>
+                            To
+                            <input type="text" id="tx-date-to" data-testid="tx-date-to" placeholder="DD/MM/YYYY" inputmode="numeric" autocomplete="off">
+                        </label>
+                        <button type="button" id="clear-date-filter-btn" class="clear-date-filter-btn" aria-label="Clear date filters" title="Clear date filters">×</button>
+                    </div>
+                    <p id="date-filter-message" class="date-filter-message" aria-live="polite" hidden></p>
+                </section>
+                <ul id="full-transaction-list" data-testid="full-transaction-list">
+                    <!-- JS renders absolute history record lines here -->
                 </ul>
-            </section>
-        </main>
+            </main>
+        </div>
+
+        <div id="budget-view" class="view-panel">
+            <header class="sub-view-header">
+                <h2>Balance &amp; Targets</h2>
+                <p>Set your starting balance and spending goals</p>
+            </header>
+            <main>
+                <form id="budget-settings-form" class="budget-settings-form">
+                    <label>
+                        Starting balance (PKR)
+                        <input type="text" id="starting-balance-input" inputmode="decimal" aria-label="Starting balance in PKR" required>
+                    </label>
+                    <div id="category-budget-fields" class="category-budget-fields"></div>
+                    <button type="submit" data-testid="save-budget-settings-btn">Save targets</button>
+                    <p id="budget-settings-message" class="date-filter-message" aria-live="polite"></p>
+                </form>
+            </main>
+        </div>
+
+        <!-- 📱 NATIVE APP FEEL BOTTOM NAVIGATION BAR SYSTEM -->
+        <nav class="bottom-nav-bar">
+            <button id="nav-home-btn" class="nav-tab active-tab" data-testid="nav-home-btn">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label">Home</span>
+            </button>
+            <button id="nav-tx-btn" class="nav-tab" data-testid="nav-tx-btn">
+                <span class="nav-icon">📊</span>
+                <span class="nav-label">Transactions</span>
+            </button>
+            <button id="nav-budget-btn" class="nav-tab" data-testid="nav-budget-btn">
+                <span class="nav-icon">🎯</span>
+                <span class="nav-label">Budget</span>
+            </button>
+        </nav>
+
     </div>
     <script src="app.js"></script>
 </body>
